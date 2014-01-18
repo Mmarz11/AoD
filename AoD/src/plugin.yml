@@ -1,0 +1,12 @@
+name: AoD
+version: 0.0.1
+description: Army of Darkness plugin
+author: Mmarz11
+main: me.mmarz11.aod.AoD
+commands:
+  killmobs:
+    usage: /killmobs
+    description: Kills all mobs
+  bow:
+    usage: /bow
+    description: Gives an explosive bow

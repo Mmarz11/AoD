@@ -1,0 +1,9 @@
+default_player_stats:
+  rank: default
+  brains: 0
+  survivor:
+    kills: 0
+    deaths: 0
+  hunter:
+    kills: 0
+    deaths: 0

@@ -1,0 +1,111 @@
+Map:
+  Name: name
+  Author: author
+Round:
+  Build: 0
+  Game: 0
+  SpawnProtect: 0
+  Gamemode: Standard
+World:
+  Time: 0
+  Weather: 0
+  Center:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  Size: 0
+  SkyLimit: 0
+  Mob:
+    Enabled: false
+    Allowed:
+    - ALLOWED
+    Restricted:
+    - RESTRICTED
+Team:
+  Survivor:
+    SpawnType: Lobby / Map
+    Spawn:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    Build:
+      Enabled: true
+      Allowed:
+      - ALLOWED
+      Restricted:
+      - RESTRICTED
+      Always:
+      - ALWAYS
+    Break:
+      Enabled: true
+      Allowed:
+      - ALLOWED
+      Restricted:
+      - RETRICTED
+      Always:
+      - ALWAYS
+    Kit:
+      Juggernaut:
+        name:
+        - MATERIAL.DAMAGE|AMOUNT
+      Start:
+        name:
+        - MATERIAL.DAMAGE|AMOUNT
+      ChooseKit: false
+      ResetInventory: true
+    FallReduction: 0
+    CanDrown: true
+    Effects:
+      Default:
+      - EFFECT
+      OnAttack:
+      - EFFECT
+      OnDefend:
+      - EFFECT
+  Hunter:
+    SpawnType: Lobby / Map
+    Spawn:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    Build:
+      Enabled: true
+      Allowed:
+      - ALLOWED
+      Restricted:
+      - RESTRICTED
+      Always:
+      - ALWAYS
+    Break:
+      Enabled: true
+      Allowed:
+      - ALLOWED
+      Restricted:
+      - RESTRICTED
+      Always:
+      - ALWAYS
+    Kit:
+      First:
+        name:
+        - MATERIAL.DAMAGE|AMOUNT
+      Start:
+        name:
+        - MATERIAL.DAMAGE|AMOUNT
+      Free:
+        name:
+        - MATERIAL.DAMAGE|AMOUNT
+      ChooseKit: false
+      OneKitPerRound: false
+      KitResetTime: 0
+      ResetInventory: true
+    CanUseLocate: true
+    MoveFirstHunter: false
+    FallReduction: 0
+    CanDrown: false
+    Effects:
+      Default:
+      - EFFECT
+      OnAttack:
+      - EFFECT
+      OnDefend:
+      - EFFECT
