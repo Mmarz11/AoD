@@ -1,4 +1,5 @@
 lobby:
+  timer: 15
   world: Lobby
   location:
     x: 292

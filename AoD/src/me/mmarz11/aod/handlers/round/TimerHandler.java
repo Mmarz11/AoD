@@ -29,7 +29,7 @@ public class TimerHandler {
 	public void lobby() {
 		currentTimer = Timer.LOBBY;
 
-		lobby = 10; // TODO Set to config default
+		lobby = this.plugin.handlers.configHandler.getConfig().getInt("lobby.timer");
 
 		lobbyTask = scheduler.scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
@@ -47,7 +47,7 @@ public class TimerHandler {
 	public void build() {
 		currentTimer = Timer.BUILD;
 
-		build = 15; // TODO Set to map default
+		build = this.plugin.handlers.mapHandler.currentMap.mapInformation.build;
 		final int buildReset = build;
 		plugin.handlers.scoreboardHandler.updateScoreboard();
 
@@ -70,7 +70,7 @@ public class TimerHandler {
 	public void round() {
 		currentTimer = Timer.ROUND;
 
-		round = 600; // TODO Set to map default
+		round = this.plugin.handlers.mapHandler.currentMap.mapInformation.game;
 		plugin.handlers.scoreboardHandler.updateScoreboard();
 		
 		plugin.handlers.playerTypeHandler.selectFirstHunter();
