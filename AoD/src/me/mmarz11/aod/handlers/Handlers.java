@@ -7,6 +7,7 @@ import me.mmarz11.aod.handlers.player.ArrowHandler;
 import me.mmarz11.aod.handlers.player.HungerHandler;
 import me.mmarz11.aod.handlers.player.LoginHandler;
 import me.mmarz11.aod.handlers.player.PermissionHandler;
+import me.mmarz11.aod.handlers.player.PlayerDeathHandler;
 import me.mmarz11.aod.handlers.player.PlayerLogoutHandler;
 import me.mmarz11.aod.handlers.player.PlayerTypeHandler;
 import me.mmarz11.aod.handlers.player.PortalHandler;
@@ -38,6 +39,7 @@ public class Handlers {
 	public StatHandler statHandler;
 	public PermissionHandler permissionHandler;
 	public ArrowHandler arrowHandler;
+	public PlayerDeathHandler playerDeathHandler;
 	
 	public Handlers(AoD plugin) {
 		this.plugin = plugin;
@@ -61,5 +63,6 @@ public class Handlers {
 		statHandler = new StatHandler(plugin);
 		permissionHandler = new PermissionHandler(plugin);
 		arrowHandler = new ArrowHandler(plugin);
+		playerDeathHandler = new PlayerDeathHandler(plugin);
 	}
 }

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class StatHandler implements Listener {
 	private AoD plugin;
@@ -30,6 +31,15 @@ public class StatHandler implements Listener {
 				new PlayerInformation(this.plugin, player.getName(),
 						this.plugin.handlers.configHandler.getStatsConfig()
 								.getConfigurationSection(player.getName())));
+	}
+	
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		PlayerInformation info = stats.remove(player.getName());
+		if (info != null) {
+			info.save();
+		}
 	}
 	
 	public void saveAll() {

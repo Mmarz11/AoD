@@ -15,3 +15,6 @@ maps:
   enabled:
   - Buildbox
   disabled:
+brains:
+  kill: 50
+  surviving: 75
