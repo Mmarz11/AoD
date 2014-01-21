@@ -59,6 +59,8 @@ public class TimerHandler {
 					} else {
 						endBuild();
 					}
+				} else if (build > 0 && build <= 5) {
+					plugin.getServer().broadcastMessage("[AoD] Build 0:0" + build);
 				}
 				
 				build--;
@@ -76,9 +78,14 @@ public class TimerHandler {
 		plugin.handlers.playerTypeHandler.selectFirstHunter();
 
 		roundTask = scheduler.scheduleSyncRepeatingTask(plugin, new Runnable() {
-			public void run() {
+			public void run() {			
 				if (round == 0) {
+					plugin.handlers.brainHandler.survived();
 					endRound();
+				} else if (round % 60 == 0) {
+					plugin.getServer().broadcastMessage("[AoD] " + round/60 + ":00 remains!");
+				} else if (round > 0 && round <= 5) {
+					plugin.getServer().broadcastMessage("[AoD] Survive 0:0" + round);
 				}
 				
 				round--;
