@@ -2,12 +2,12 @@ package me.mmarz11.aod.handlers;
 
 import me.mmarz11.aod.AoD;
 import me.mmarz11.aod.handlers.map.BuildBreakHandler;
-import me.mmarz11.aod.handlers.map.MobHandler;
+import me.mmarz11.aod.handlers.map.MapHandler;
 import me.mmarz11.aod.handlers.player.ArrowHandler;
+import me.mmarz11.aod.handlers.player.BrainHandler;
 import me.mmarz11.aod.handlers.player.HungerHandler;
 import me.mmarz11.aod.handlers.player.LoginHandler;
 import me.mmarz11.aod.handlers.player.PermissionHandler;
-import me.mmarz11.aod.handlers.player.BrainHandler;
 import me.mmarz11.aod.handlers.player.PlayerLogoutHandler;
 import me.mmarz11.aod.handlers.player.PlayerTypeHandler;
 import me.mmarz11.aod.handlers.player.PortalHandler;
@@ -15,7 +15,6 @@ import me.mmarz11.aod.handlers.player.RespawnHandler;
 import me.mmarz11.aod.handlers.player.StatHandler;
 import me.mmarz11.aod.handlers.player.TeamkillHandler;
 import me.mmarz11.aod.handlers.round.KitHandler;
-import me.mmarz11.aod.handlers.round.MapHandler;
 import me.mmarz11.aod.handlers.round.ScoreboardHandler;
 import me.mmarz11.aod.handlers.round.TimerHandler;
 
@@ -33,7 +32,6 @@ public class Handlers {
 	public PortalHandler portalHandler;
 	public KitHandler kitHandler;
 	public HungerHandler hungerHandler;
-	public MobHandler mobHandler;
 	public BuildBreakHandler buildBreakHandler;
 	public RespawnHandler respawnHandler;
 	public StatHandler statHandler;
@@ -57,7 +55,6 @@ public class Handlers {
 		portalHandler = new PortalHandler(plugin);
 		kitHandler = new KitHandler(plugin);
 		hungerHandler = new HungerHandler(plugin);
-		mobHandler = new MobHandler(plugin);
 		buildBreakHandler = new BuildBreakHandler(plugin);
 		respawnHandler = new RespawnHandler(plugin);
 		statHandler = new StatHandler(plugin);

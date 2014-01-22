@@ -9,8 +9,8 @@ import me.mmarz11.aod.Kit;
 import me.mmarz11.aod.Map;
 import me.mmarz11.aod.enums.PlayerType;
 import me.mmarz11.aod.enums.Timer;
+import me.mmarz11.aod.handlers.map.MapHandler;
 import me.mmarz11.aod.handlers.round.KitHandler;
-import me.mmarz11.aod.handlers.round.MapHandler;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;

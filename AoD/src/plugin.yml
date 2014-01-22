@@ -8,5 +8,5 @@ commands:
     usage: /killmobs
     description: Kills all mobs
   bow:
-    usage: /bow
+    usage: /bow <lore>
     description: Gives an explosive bow

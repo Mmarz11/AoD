@@ -55,10 +55,14 @@ public class AoD extends JavaPlugin {
 			return true;
 		} else if (label.equalsIgnoreCase("bow")) {
 			if (sender instanceof Player) {
+				if (args.length == 0) {
+					return false;
+				}
+				
 				Player player = (Player) sender;
 				ItemStack itemstack = new ItemStack(Material.BOW);
 				List<String> lore = new ArrayList<String>();
-				lore.add("explosive");
+				lore.add(args[0]);
 				ItemMeta meta = itemstack.getItemMeta();
 				meta.setLore(lore);
 				itemstack.setItemMeta(meta);

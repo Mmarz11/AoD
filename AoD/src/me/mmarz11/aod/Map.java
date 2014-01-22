@@ -22,6 +22,7 @@ public class Map {
 		this.world = plugin.getServer().getWorld(name);
 		
 		if (this.world == null) {
+			this.plugin.handlers.mapHandler.disableMap(this.getName());
 			this.plugin.getLogger().log(Level.SEVERE, "World " + name + " Does Not Exist");
 		}
 	}

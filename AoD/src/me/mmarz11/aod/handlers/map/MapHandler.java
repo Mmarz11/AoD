@@ -1,4 +1,4 @@
-package me.mmarz11.aod.handlers.round;
+package me.mmarz11.aod.handlers.map;
 
 import java.util.ArrayList;
 
@@ -43,6 +43,7 @@ public class MapHandler {
 		double z = config.getDouble("lobby.location.z");
 
 		lobbySpawn = new Location(world, x, y, z);
+		world.setSpawnFlags(false, false);
 
 		for (String map : config.getStringList("maps.enabled")) {
 			enableMap(map);
