@@ -11,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.ThrownPotion;
@@ -60,6 +61,9 @@ public class ArrowHandler implements Listener {
 				} else if (type.equalsIgnoreCase("poison")) {
 					player.sendMessage("Poison arrow shot.");
 					arrows.put(id, ArrowType.POISON);
+				} else if (type.equalsIgnoreCase("teleport")) {
+					player.sendMessage("Teleportation arrow shot.");
+					arrows.put(id, ArrowType.TELEPORT);
 				}
 			}
 		}
@@ -75,17 +79,25 @@ public class ArrowHandler implements Listener {
 			ArrowType type = arrows.remove(arrow.getEntityId());
 			if (type == ArrowType.EXPLOSIVE) {
 				world.createExplosion(location, 4F);
+				arrow.remove();
 			} else if (type == ArrowType.POISON) {
 				Entity entity = world.spawnEntity(location,
 						EntityType.SPLASH_POTION);
 				ThrownPotion potionEntity = (ThrownPotion) entity;
-				
+
 				Potion potion = new Potion(PotionType.POISON);
 				potion.setLevel(1);
-				
+
 				potionEntity.setItem(potion.toItemStack(1));
 				potionEntity.setVelocity(arrow.getVelocity());
 				potionEntity.setShooter(arrow.getShooter());
+				arrow.remove();
+			} else if (type == ArrowType.TELEPORT) {
+				LivingEntity shooter = arrow.getShooter();
+				shooter.teleport(new Location(world, location.getX(), location
+						.getY(), location.getZ(), shooter.getLocation()
+						.getYaw(), shooter.getLocation().getPitch()));
+				arrow.remove();
 			}
 		}
 	}

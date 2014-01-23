@@ -29,11 +29,11 @@ public class LoginHandler implements Listener {
 					.getString("tutorial.world");
 
 			World world = this.plugin.getServer().getWorld(worldName);
-			int x = this.plugin.handlers.configHandler.getConfig().getInt(
+			double x = this.plugin.handlers.configHandler.getConfig().getDouble(
 					"tutorial.location.x");
-			int y = this.plugin.handlers.configHandler.getConfig().getInt(
+			double y = this.plugin.handlers.configHandler.getConfig().getDouble(
 					"tutorial.location.y");
-			int z = this.plugin.handlers.configHandler.getConfig().getInt(
+			double z = this.plugin.handlers.configHandler.getConfig().getDouble(
 					"tutorial.location.z");
 
 			Location spawn = new Location(world, x, y, z);
