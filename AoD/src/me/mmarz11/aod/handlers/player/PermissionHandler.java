@@ -12,13 +12,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.PermissionAttachment;
 
 public class PermissionHandler implements Listener {
-	private AoD plugin;
-	
 	public HashMap<String, PermissionAttachment> permissions;
 	
-	public PermissionHandler(AoD plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+	public PermissionHandler() {
+		AoD.inst.getServer().getPluginManager().registerEvents(this, AoD.inst);
 		
 		this.permissions = new HashMap<String, PermissionAttachment>();
 	}
@@ -27,7 +24,7 @@ public class PermissionHandler implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		
-		FileConfiguration config = this.plugin.handlers.configHandler.getStatsConfig();
+		FileConfiguration config = AoD.inst.handlers.configHandler.getStatsConfig();
 		config.getString(player.getName() + ".rank");
 	}
 }

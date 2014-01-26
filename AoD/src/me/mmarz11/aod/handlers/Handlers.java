@@ -1,6 +1,5 @@
 package me.mmarz11.aod.handlers;
 
-import me.mmarz11.aod.AoD;
 import me.mmarz11.aod.handlers.map.BuildBreakHandler;
 import me.mmarz11.aod.handlers.map.MapHandler;
 import me.mmarz11.aod.handlers.player.ArrowHandler;
@@ -19,47 +18,28 @@ import me.mmarz11.aod.handlers.round.ScoreboardHandler;
 import me.mmarz11.aod.handlers.round.TimerHandler;
 
 public class Handlers {
-	private AoD plugin;
-	
-	public ScoreboardHandler scoreboardHandler;
-	public TimerHandler timerHandler;
-	public PlayerTypeHandler playerTypeHandler;
-	public PlayerLogoutHandler playerLogoutHandler;
-	public ConfigHandler configHandler;
-	public MapHandler mapHandler;
-	public TeamkillHandler teamkillHandler;
-	public LoginHandler loginHandler;
-	public PortalHandler portalHandler;
-	public KitHandler kitHandler;
-	public HungerHandler hungerHandler;
-	public BuildBreakHandler buildBreakHandler;
-	public RespawnHandler respawnHandler;
-	public StatHandler statHandler;
-	public PermissionHandler permissionHandler;
-	public ArrowHandler arrowHandler;
-	public BrainHandler brainHandler;
-	
-	public Handlers(AoD plugin) {
-		this.plugin = plugin;
-	}
-	
+	public ScoreboardHandler scoreboardHandler = new ScoreboardHandler();
+	public TimerHandler timerHandler = new TimerHandler();
+	public PlayerTypeHandler playerTypeHandler = new PlayerTypeHandler();
+	public PlayerLogoutHandler playerLogoutHandler = new PlayerLogoutHandler();
+	public ConfigHandler configHandler = new ConfigHandler();
+	public MapHandler mapHandler = new MapHandler();
+	public TeamkillHandler teamkillHandler = new TeamkillHandler();
+	public LoginHandler loginHandler = new LoginHandler();
+	public PortalHandler portalHandler = new PortalHandler();
+	public KitHandler kitHandler = new KitHandler();
+	public HungerHandler hungerHandler = new HungerHandler();
+	public BuildBreakHandler buildBreakHandler = new BuildBreakHandler();
+	public RespawnHandler respawnHandler = new RespawnHandler();
+	public StatHandler statHandler = new StatHandler();
+	public PermissionHandler permissionHandler = new PermissionHandler();
+	public ArrowHandler arrowHandler = new ArrowHandler();
+	public BrainHandler brainHandler = new BrainHandler();
+
 	public void init() {
-		scoreboardHandler = new ScoreboardHandler(plugin);
-		timerHandler = new TimerHandler(plugin);
-		playerTypeHandler = new PlayerTypeHandler(plugin);
-		playerLogoutHandler = new PlayerLogoutHandler(plugin);
-		configHandler = new ConfigHandler(plugin);
-		mapHandler = new MapHandler(plugin);
-		teamkillHandler = new TeamkillHandler(plugin);
-		loginHandler = new LoginHandler(plugin);
-		portalHandler = new PortalHandler(plugin);
-		kitHandler = new KitHandler(plugin);
-		hungerHandler = new HungerHandler(plugin);
-		buildBreakHandler = new BuildBreakHandler(plugin);
-		respawnHandler = new RespawnHandler(plugin);
-		statHandler = new StatHandler(plugin);
-		permissionHandler = new PermissionHandler(plugin);
-		arrowHandler = new ArrowHandler(plugin);
-		brainHandler = new BrainHandler(plugin);
+		configHandler.init();
+		brainHandler.init();
+		mapHandler.init();
+		scoreboardHandler.init();
 	}
 }

@@ -19,27 +19,23 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
 public class ArrowHandler implements Listener {
-	private AoD plugin;
-
 	private HashMap<Integer, ArrowType> arrows;
 
-	public ArrowHandler(AoD plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager()
-				.registerEvents(this, this.plugin);
+	public ArrowHandler() {
+		AoD.inst.getServer().getPluginManager()
+				.registerEvents(this, AoD.inst);
 		this.arrows = new HashMap<Integer, ArrowType>();
 	}
 
 	@EventHandler
 	public void onEntityShootBow(EntityShootBowEvent event) {
 		Entity entity = event.getEntity();
-		if (this.plugin.handlers.mapHandler.lobbySpawn.getWorld().equals(
+		if (AoD.inst.handlers.mapHandler.lobbySpawn.getWorld().equals(
 				entity.getWorld())) {
 			event.setCancelled(true);
 			return;
@@ -47,8 +43,7 @@ public class ArrowHandler implements Listener {
 
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
-			ItemStack bow = event.getBow();
-			ItemMeta meta = bow.getItemMeta();
+			ItemMeta meta = event.getBow().getItemMeta();
 
 			if (meta.hasLore()) {
 				int id = event.getProjectile().getEntityId();

@@ -12,8 +12,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigHandler {
-	private AoD plugin;
-
 	private FileConfiguration config;
 	private File configFile;
 
@@ -22,45 +20,41 @@ public class ConfigHandler {
 	private FileConfiguration stats;
 	private File statsFile;
 
-	public ConfigHandler(AoD plugin) {
-		this.plugin = plugin;
-
+	public ConfigHandler() {
 		maps = new HashMap<String, FileConfiguration>();
-
-		init();
 	}
 
 	public void init() {
-		if (!plugin.getDataFolder().exists()) {
-			plugin.getDataFolder().mkdir();
+		if (!AoD.inst.getDataFolder().exists()) {
+			AoD.inst.getDataFolder().mkdir();
 		}
 
-		configFile = new File(plugin.getDataFolder(), "config.yml");
-		config = plugin.getConfig();
+		configFile = new File(AoD.inst.getDataFolder(), "config.yml");
+		config = AoD.inst.getConfig();
 
 		config.options().copyDefaults(true);
 		saveConfig();
 
-		statsFile = new File(plugin.getDataFolder(), "stats.yml");
+		statsFile = new File(AoD.inst.getDataFolder(), "stats.yml");
 		stats = YamlConfiguration.loadConfiguration(statsFile);
 
 		saveStatConfig();
 	}
-	
+
 	public void saveAll() {
 		saveStatConfig();
 		saveConfig();
 	}
-	
+
 	public FileConfiguration getStatsConfig() {
 		return stats;
 	}
-	
+
 	public void saveStatConfig() {
 		try {
 			stats.save(statsFile);
 		} catch (IOException e) {
-			plugin.getServer().getLogger()
+			AoD.inst.getServer().getLogger()
 					.log(Level.SEVERE, "Could not save stats config.");
 		}
 	}
@@ -73,7 +67,7 @@ public class ConfigHandler {
 		try {
 			config.save(configFile);
 		} catch (IOException exception) {
-			plugin.getServer().getLogger()
+			AoD.inst.getServer().getLogger()
 					.log(Level.SEVERE, "Could not save config.yml");
 		}
 	}
@@ -83,14 +77,14 @@ public class ConfigHandler {
 	}
 
 	public void addMapConfig(Map map) {
-		File file = new File(plugin.getDataFolder(), "maps/" + map.getName()
+		File file = new File(AoD.inst.getDataFolder(), "maps/" + map.getName()
 				+ ".yml");
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
 		try {
 			config.save(file);
 		} catch (IOException exception) {
-			plugin.getServer()
+			AoD.inst.getServer()
 					.getLogger()
 					.log(Level.SEVERE,
 							"Could not save map config of: " + file.getName());

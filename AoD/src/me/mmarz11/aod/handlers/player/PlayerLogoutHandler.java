@@ -8,16 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerLogoutHandler implements Listener {
-	private AoD plugin;
-	
-	public PlayerLogoutHandler(AoD plugin) {
-		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	public PlayerLogoutHandler() {
+		AoD.inst.getServer().getPluginManager().registerEvents(this, AoD.inst);
 	}
-	
+
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		plugin.handlers.playerTypeHandler.removePlayerFromAll(player);
+		AoD.inst.handlers.playerTypeHandler.removePlayerFromAll(player);
 	}
 }

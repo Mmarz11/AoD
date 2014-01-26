@@ -15,33 +15,29 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BuildBreakHandler implements Listener {
-	private AoD plugin;
-
-	public BuildBreakHandler(AoD plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager()
-				.registerEvents(this, this.plugin);
+	public BuildBreakHandler() {
+		AoD.inst.getServer().getPluginManager().registerEvents(this, AoD.inst);
 	}
-	
+
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Block block = event.getBlock();
 		String name = block.getType().name();
 
-		String worldName = this.plugin.handlers.configHandler.getConfig()
+		String worldName = AoD.inst.handlers.configHandler.getConfig()
 				.getString("lobby.world");
 
-		World lobby = this.plugin.getServer().getWorld(worldName);
+		World lobby = AoD.inst.getServer().getWorld(worldName);
 		if (block.getWorld().equals(lobby)) {
 			event.setCancelled(true);
 			return;
 		}
 
 		Player player = event.getPlayer();
-		PlayerTypeHandler handler = this.plugin.handlers.playerTypeHandler;
+		PlayerTypeHandler handler = AoD.inst.handlers.playerTypeHandler;
 
-		Map map = this.plugin.handlers.mapHandler.currentMap;
-		Timer timer = this.plugin.handlers.timerHandler.getCurrentTimer();
+		Map map = AoD.inst.handlers.mapHandler.currentMap;
+		Timer timer = AoD.inst.handlers.timerHandler.getCurrentTimer();
 		if (handler.survivors.contains(player.getName())) {
 			TeamInformation info = map.mapInformation.survivor;
 			if (timer == Timer.BUILD) {
@@ -80,20 +76,20 @@ public class BuildBreakHandler implements Listener {
 		Block block = event.getBlock();
 		String name = block.getType().name();
 
-		String worldName = this.plugin.handlers.configHandler.getConfig()
+		String worldName = AoD.inst.handlers.configHandler.getConfig()
 				.getString("lobby.world");
 
-		World lobby = this.plugin.getServer().getWorld(worldName);
+		World lobby = AoD.inst.getServer().getWorld(worldName);
 		if (block.getWorld().equals(lobby)) {
 			event.setCancelled(true);
 			return;
 		}
 
 		Player player = event.getPlayer();
-		PlayerTypeHandler handler = this.plugin.handlers.playerTypeHandler;
+		PlayerTypeHandler handler = AoD.inst.handlers.playerTypeHandler;
 
-		Map map = this.plugin.handlers.mapHandler.currentMap;
-		Timer timer = this.plugin.handlers.timerHandler.getCurrentTimer();
+		Map map = AoD.inst.handlers.mapHandler.currentMap;
+		Timer timer = AoD.inst.handlers.timerHandler.getCurrentTimer();
 		if (handler.survivors.contains(player.getName())) {
 			TeamInformation info = map.mapInformation.survivor;
 			if (timer == Timer.BUILD) {

@@ -11,26 +11,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 public class HungerHandler implements Listener {
-	private AoD plugin;
-
-	public HungerHandler(AoD plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager()
-				.registerEvents(this, this.plugin);
+	public HungerHandler() {
+		AoD.inst.getServer().getPluginManager().registerEvents(this, AoD.inst);
 	}
 
 	@EventHandler
 	public void onFoodLevelChangeEvent(FoodLevelChangeEvent event) {
 		Entity entity = event.getEntity();
 
-		TimerHandler handler = this.plugin.handlers.timerHandler;
+		TimerHandler handler = AoD.inst.handlers.timerHandler;
 		if (handler.getCurrentTimer() != Timer.ROUND) {
 			event.setCancelled(true);
 		} else {
 			if (entity instanceof Player) {
 				Player player = (Player) entity;
-				if (this.plugin.handlers.playerTypeHandler.hunters
-						.contains(player.getName())) {
+				if (AoD.inst.handlers.playerTypeHandler.hunters.contains(player
+						.getName())) {
 					event.setCancelled(true);
 				}
 			}

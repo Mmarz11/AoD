@@ -11,8 +11,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class MapHandler {
-	private AoD plugin;
-
 	public Location lobbySpawn;
 
 	public Map previousMap;
@@ -22,22 +20,17 @@ public class MapHandler {
 	private ArrayList<Map> enabled;
 	private ArrayList<Map> disabled;
 
-	public MapHandler(AoD plugin) {
-		this.plugin = plugin;
-
+	public MapHandler() {
 		this.enabled = new ArrayList<Map>();
 		this.disabled = new ArrayList<Map>();
-
-		init();
 	}
 
 	public void init() {
-		String worldName = this.plugin.handlers.configHandler.getConfig()
+		String worldName = AoD.inst.handlers.configHandler.getConfig()
 				.getString("lobby.world");
 
-		World world = this.plugin.getServer().getWorld(worldName);
-		FileConfiguration config = this.plugin.handlers.configHandler
-				.getConfig();
+		World world = AoD.inst.getServer().getWorld(worldName);
+		FileConfiguration config = AoD.inst.handlers.configHandler.getConfig();
 		double x = config.getDouble("lobby.location.x");
 		double y = config.getDouble("lobby.location.y");
 		double z = config.getDouble("lobby.location.z");
@@ -55,9 +48,9 @@ public class MapHandler {
 	}
 
 	public void enableMap(String name) {
-		ConfigHandler configHandler = this.plugin.handlers.configHandler;
+		ConfigHandler configHandler = AoD.inst.handlers.configHandler;
 
-		Map map = new Map(plugin, name);
+		Map map = new Map(AoD.inst, name);
 		if (!enabled.contains(map)) {
 			if (disabled.contains(map)) {
 				disabled.remove(map);
@@ -68,9 +61,9 @@ public class MapHandler {
 	}
 
 	public void disableMap(String name) {
-		ConfigHandler configHandler = this.plugin.handlers.configHandler;
+		ConfigHandler configHandler = AoD.inst.handlers.configHandler;
 
-		Map map = new Map(plugin, name);
+		Map map = new Map(AoD.inst, name);
 		if (!disabled.contains(map)) {
 			if (enabled.contains(map)) {
 				enabled.remove(map);

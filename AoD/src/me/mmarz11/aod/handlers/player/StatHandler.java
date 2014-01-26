@@ -12,14 +12,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class StatHandler implements Listener {
-	private AoD plugin;
-
 	public HashMap<String, PlayerInformation> stats;
 
-	public StatHandler(AoD plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager()
-				.registerEvents(this, this.plugin);
+	public StatHandler() {
+		AoD.inst.getServer().getPluginManager()
+				.registerEvents(this, AoD.inst);
 
 		this.stats = new HashMap<String, PlayerInformation>();
 	}
@@ -28,8 +25,8 @@ public class StatHandler implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		stats.put(player.getName(),
-				new PlayerInformation(this.plugin, player.getName(),
-						this.plugin.handlers.configHandler.getStatsConfig()
+				new PlayerInformation(AoD.inst, player.getName(),
+						AoD.inst.handlers.configHandler.getStatsConfig()
 								.getConfigurationSection(player.getName())));
 	}
 	

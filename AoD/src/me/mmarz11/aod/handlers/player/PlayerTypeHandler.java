@@ -21,21 +21,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerTypeHandler implements Listener {
-	private AoD plugin;
-
 	public ArrayList<String> survivors;
 	public ArrayList<String> hunters;
 	public ArrayList<String> referees;
 
-	public PlayerTypeHandler(AoD plugin) {
-		this.plugin = plugin;
-
+	public PlayerTypeHandler() {
 		this.survivors = new ArrayList<String>();
 		this.hunters = new ArrayList<String>();
 		this.referees = new ArrayList<String>();
 
-		this.plugin.getServer().getPluginManager()
-				.registerEvents(this, this.plugin);
+		AoD.inst.getServer().getPluginManager().registerEvents(this, AoD.inst);
 	}
 
 	public void addPlayer(Player player, PlayerType playerType) {
@@ -46,11 +41,11 @@ public class PlayerTypeHandler implements Listener {
 		} else if (playerType == PlayerType.REFEREE) {
 			referees.add(player.getName());
 		} else {
-			plugin.getLogger().log(Level.SEVERE,
+			AoD.inst.getLogger().log(Level.SEVERE,
 					"[AoD] Can Not Find Valid Player Type");
 		}
 
-		this.plugin.handlers.scoreboardHandler.updateScoreboard();
+		AoD.inst.handlers.scoreboardHandler.updateScoreboard();
 	}
 
 	public void removePlayerFromAll(Player player) {
@@ -58,7 +53,7 @@ public class PlayerTypeHandler implements Listener {
 		removePlayer(player, PlayerType.SURVIVOR);
 		removePlayer(player, PlayerType.REFEREE);
 
-		this.plugin.handlers.scoreboardHandler.updateScoreboard();
+		AoD.inst.handlers.scoreboardHandler.updateScoreboard();
 	}
 
 	public void removePlayer(Player player, PlayerType playerType) {
@@ -69,22 +64,22 @@ public class PlayerTypeHandler implements Listener {
 		} else if (playerType == PlayerType.REFEREE) {
 			referees.remove(player.getName());
 		} else {
-			plugin.getLogger().log(Level.SEVERE,
+			AoD.inst.getLogger().log(Level.SEVERE,
 					"[AoD] Can Not Find Valid Player Type");
 		}
 
-		this.plugin.handlers.scoreboardHandler.updateScoreboard();
+		AoD.inst.handlers.scoreboardHandler.updateScoreboard();
 	}
 
 	public void infect(Player player) {
 		removePlayer(player, PlayerType.SURVIVOR);
 		addPlayer(player, PlayerType.HUNTER);
 
-		this.plugin.handlers.scoreboardHandler.updateScoreboard();
+		AoD.inst.handlers.scoreboardHandler.updateScoreboard();
 	}
 
 	public void uninfectAll() {
-		for (Player player : this.plugin.getServer().getOnlinePlayers()) {
+		for (Player player : AoD.inst.getServer().getOnlinePlayers()) {
 			uninfect(player);
 		}
 	}
@@ -93,21 +88,21 @@ public class PlayerTypeHandler implements Listener {
 		removePlayer(player, PlayerType.HUNTER);
 		addPlayer(player, PlayerType.SURVIVOR);
 
-		this.plugin.handlers.scoreboardHandler.updateScoreboard();
+		AoD.inst.handlers.scoreboardHandler.updateScoreboard();
 	}
 
 	public void selectFirstHunter() {
-		Player player = plugin
+		Player player = AoD.inst
 				.getServer()
 				.getOfflinePlayer(
 						survivors.get((int) (Math.random() * survivors.size())))
 				.getPlayer();
 		infect(player);
-		this.plugin.getServer().broadcastMessage(
+		AoD.inst.getServer().broadcastMessage(
 				player.getName() + " has been selected as the first hunter!");
 		World world = player.getWorld();
-		
-		MapHandler mapHandler = this.plugin.handlers.mapHandler;
+
+		MapHandler mapHandler = AoD.inst.handlers.mapHandler;
 		Map map = mapHandler.currentMap;
 		if (world.equals(map)) {
 			if (map.mapInformation.hunter.moveFirstHunter) {
@@ -116,25 +111,27 @@ public class PlayerTypeHandler implements Listener {
 		} else {
 			player.teleport(map.mapInformation.hunter.spawn);
 		}
-		
-		KitHandler kitHandler = this.plugin.handlers.kitHandler;
+
+		KitHandler kitHandler = AoD.inst.handlers.kitHandler;
 		kitHandler.giveKit(player, map.mapInformation.hunter.first);
-		
+
 		world.setThunderDuration(60);
 		world.strikeLightningEffect(player.getLocation());
-		
-		for (Player p : this.plugin.getServer().getOnlinePlayers()) {
+
+		for (Player p : AoD.inst.getServer().getOnlinePlayers()) {
 			if (p.getWorld().equals(mapHandler.lobbySpawn.getWorld())) {
-				PlayerTypeHandler playerTypeHandler = this.plugin.handlers.playerTypeHandler;
+				PlayerTypeHandler playerTypeHandler = AoD.inst.handlers.playerTypeHandler;
 				if (playerTypeHandler.hunters.contains(p.getName())) {
 					p.teleport(map.mapInformation.hunter.spawn);
 					if (!p.equals(player)) {
 						List<Kit> kits = map.mapInformation.hunter.starting;
-						kitHandler.giveKit(p, kits.get((int)(Math.random()*kits.size())));
+						kitHandler.giveKit(p,
+								kits.get((int) (Math.random() * kits.size())));
 					}
 				} else {
 					List<Kit> kits = map.mapInformation.survivor.starting;
-					kitHandler.giveKit(p, kits.get((int)(Math.random()*kits.size())));
+					kitHandler.giveKit(p,
+							kits.get((int) (Math.random() * kits.size())));
 					p.teleport(map.mapInformation.survivor.spawn);
 				}
 			}
@@ -145,7 +142,7 @@ public class PlayerTypeHandler implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
-		Timer timer = this.plugin.handlers.timerHandler.getCurrentTimer();
+		Timer timer = AoD.inst.handlers.timerHandler.getCurrentTimer();
 
 		if (timer == Timer.LOBBY || timer == Timer.BUILD) {
 			this.addPlayer(player, PlayerType.SURVIVOR);
@@ -158,7 +155,7 @@ public class PlayerTypeHandler implements Listener {
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 
-		Timer timer = this.plugin.handlers.timerHandler.getCurrentTimer();
+		Timer timer = AoD.inst.handlers.timerHandler.getCurrentTimer();
 
 		if (timer == Timer.ROUND) {
 			if (survivors.contains(player.getName())) {
@@ -167,8 +164,8 @@ public class PlayerTypeHandler implements Listener {
 		}
 
 		if (timer == Timer.ROUND && survivors.size() == 0) {
-			this.plugin.getServer().broadcastMessage("No survivors remain!");
-			this.plugin.handlers.timerHandler.endRound();
+			AoD.inst.getServer().broadcastMessage("No survivors remain!");
+			AoD.inst.handlers.timerHandler.endRound();
 			this.uninfectAll();
 		}
 	}
@@ -178,11 +175,11 @@ public class PlayerTypeHandler implements Listener {
 		Player player = event.getPlayer();
 		this.removePlayerFromAll(player);
 
-		Timer timer = this.plugin.handlers.timerHandler.getCurrentTimer();
+		Timer timer = AoD.inst.handlers.timerHandler.getCurrentTimer();
 
 		if (timer == Timer.ROUND && survivors.size() == 0) {
-			this.plugin.getServer().broadcastMessage("No survivors remain!");
-			this.plugin.handlers.timerHandler.endRound();
+			AoD.inst.getServer().broadcastMessage("No survivors remain!");
+			AoD.inst.handlers.timerHandler.endRound();
 			this.uninfectAll();
 		}
 	}

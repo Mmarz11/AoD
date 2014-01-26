@@ -17,11 +17,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AoD extends JavaPlugin {
+	public static AoD inst;
+	
 	public Handlers handlers;
 
 	@Override
 	public void onEnable() {
-		handlers = new Handlers(this);
+		inst = this;
+		
+		handlers = new Handlers();
 		handlers.init();
 		handlers.timerHandler.lobby();
 

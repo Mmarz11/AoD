@@ -14,13 +14,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class TeamkillHandler implements Listener {
-	private AoD plugin;
-
-	public TeamkillHandler(AoD plugin) {
-		this.plugin = plugin;
-
-		this.plugin.getServer().getPluginManager()
-				.registerEvents(this, this.plugin);
+	public TeamkillHandler() {
+		AoD.inst.getServer().getPluginManager().registerEvents(this, AoD.inst);
 	}
 
 	@EventHandler
@@ -30,7 +25,7 @@ public class TeamkillHandler implements Listener {
 		Entity damaged = event.getEntity();
 
 		if (damaged.getWorld().equals(
-				this.plugin.handlers.mapHandler.lobbySpawn.getWorld())) {
+				AoD.inst.handlers.mapHandler.lobbySpawn.getWorld())) {
 			event.setCancelled(true);
 			return;
 		}
@@ -42,7 +37,7 @@ public class TeamkillHandler implements Listener {
 			if (damager instanceof Player) {
 				Player player2 = (Player) damager;
 
-				PlayerTypeHandler handler = this.plugin.handlers.playerTypeHandler;
+				PlayerTypeHandler handler = AoD.inst.handlers.playerTypeHandler;
 				if ((handler.survivors.contains(player.getName()) && handler.survivors
 						.contains(player2.getName()))
 						|| (handler.hunters.contains(player.getName()) && handler.hunters
@@ -62,7 +57,7 @@ public class TeamkillHandler implements Listener {
 		ThrownPotion potion = event.getEntity();
 
 		if (potion.getWorld().equals(
-				this.plugin.handlers.mapHandler.lobbySpawn.getWorld())) {
+				AoD.inst.handlers.mapHandler.lobbySpawn.getWorld())) {
 			event.setCancelled(true);
 			return;
 		}
@@ -81,7 +76,7 @@ public class TeamkillHandler implements Listener {
 							continue;
 						}
 
-						PlayerTypeHandler handler = this.plugin.handlers.playerTypeHandler;
+						PlayerTypeHandler handler = AoD.inst.handlers.playerTypeHandler;
 						if ((handler.survivors.contains(player.getName()) && handler.survivors
 								.contains(player2.getName()))
 								|| (handler.hunters.contains(player.getName()) && handler.hunters
