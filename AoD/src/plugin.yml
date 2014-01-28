@@ -10,3 +10,15 @@ commands:
   bow:
     usage: /bow <lore>
     description: Gives an explosive bow
+  setlobbytime:
+    usage: /setlobbytime <time>
+    description: Sets the lobby timer
+  setbuildtime:
+    usage: /setbuildtime <time>
+    description: Sets the build timer
+  endround:
+    usage: /endround
+    description: Ends the round
+  brains:
+    usage: /brains
+    description: Tells player number of brains they possess

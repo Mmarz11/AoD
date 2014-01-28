@@ -22,11 +22,11 @@ public class HunterInformation extends TeamInformation {
 				.getConfigurationSection("Kit.First");
 		
 		String key = (String) section.getKeys(false).toArray()[0];
-		first = new Kit(key, config.getStringList(key));
+		first = new Kit(key, config.getStringList("Kit.First." + key));
 		
 		section = config.getConfigurationSection("Kit.Free");
 		key = (String) section.getKeys(false).toArray()[0];
-		free = new Kit(key, config.getStringList(key));
+		free = new Kit(key, config.getStringList("Kit.Free." + key));
 		
 		oneKitPerRound = config.getBoolean("Kit.OneKitPerRound");
 		kitResetTime = config.getInt("Kit.KitResetTime");

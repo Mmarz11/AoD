@@ -18,13 +18,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AoD extends JavaPlugin {
 	public static AoD inst;
-	
+
 	public Handlers handlers;
 
 	@Override
 	public void onEnable() {
 		inst = this;
-		
+
 		handlers = new Handlers();
 		handlers.init();
 		handlers.timerHandler.lobby();
@@ -62,7 +62,7 @@ public class AoD extends JavaPlugin {
 				if (args.length == 0) {
 					return false;
 				}
-				
+
 				Player player = (Player) sender;
 				ItemStack itemstack = new ItemStack(Material.BOW);
 				List<String> lore = new ArrayList<String>();
@@ -70,8 +70,43 @@ public class AoD extends JavaPlugin {
 				ItemMeta meta = itemstack.getItemMeta();
 				meta.setLore(lore);
 				itemstack.setItemMeta(meta);
-				
+
 				player.getInventory().addItem(itemstack);
+				return true;
+			}
+		} else if (label.equalsIgnoreCase("setlobbytime")) {
+			if (args.length == 0) {
+				return false;
+			}
+
+			try {
+				int time = Integer.valueOf(args[0]);
+				this.handlers.timerHandler.lobby = time;
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		} else if (label.equalsIgnoreCase("setbuildtime")) {
+			if (args.length == 0) {
+				return false;
+			}
+
+			try {
+				int time = Integer.valueOf(args[0]);
+				this.handlers.timerHandler.build = time;
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		} else if (label.equalsIgnoreCase("endround")) {
+			this.handlers.timerHandler.endRound();
+			return true;
+		} else if (label.equalsIgnoreCase("brains")) {
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				player.sendMessage("You have "
+						+ AoD.inst.handlers.statHandler.stats.get(player
+								.getName()).brains + " brains.");
 				return true;
 			}
 		}

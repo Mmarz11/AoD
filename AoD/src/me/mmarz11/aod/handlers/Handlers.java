@@ -7,7 +7,6 @@ import me.mmarz11.aod.handlers.player.BrainHandler;
 import me.mmarz11.aod.handlers.player.HungerHandler;
 import me.mmarz11.aod.handlers.player.LoginHandler;
 import me.mmarz11.aod.handlers.player.PermissionHandler;
-import me.mmarz11.aod.handlers.player.PlayerLogoutHandler;
 import me.mmarz11.aod.handlers.player.PlayerTypeHandler;
 import me.mmarz11.aod.handlers.player.PortalHandler;
 import me.mmarz11.aod.handlers.player.RespawnHandler;
@@ -21,7 +20,6 @@ public class Handlers {
 	public ScoreboardHandler scoreboardHandler = new ScoreboardHandler();
 	public TimerHandler timerHandler = new TimerHandler();
 	public PlayerTypeHandler playerTypeHandler = new PlayerTypeHandler();
-	public PlayerLogoutHandler playerLogoutHandler = new PlayerLogoutHandler();
 	public ConfigHandler configHandler = new ConfigHandler();
 	public MapHandler mapHandler = new MapHandler();
 	public TeamkillHandler teamkillHandler = new TeamkillHandler();

@@ -166,7 +166,6 @@ public class PlayerTypeHandler implements Listener {
 		if (timer == Timer.ROUND && survivors.size() == 0) {
 			AoD.inst.getServer().broadcastMessage("No survivors remain!");
 			AoD.inst.handlers.timerHandler.endRound();
-			this.uninfectAll();
 		}
 	}
 

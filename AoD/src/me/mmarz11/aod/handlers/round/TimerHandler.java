@@ -3,6 +3,8 @@ package me.mmarz11.aod.handlers.round;
 import me.mmarz11.aod.AoD;
 import me.mmarz11.aod.enums.Timer;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class TimerHandler {
@@ -114,6 +116,18 @@ public class TimerHandler {
 
 	public void endRound() {
 		scheduler.cancelTask(roundTask);
+		
+		AoD.inst.handlers.playerTypeHandler.uninfectAll();
+		
+		for (Player player : AoD.inst.getServer().getOnlinePlayers()) {
+			Location lobby = AoD.inst.handlers.mapHandler.lobbySpawn;
+			if (!player.getWorld().equals(lobby.getWorld())) {
+				player.teleport(lobby);
+			}
+			
+			player.getInventory().clear();
+		}
+		
 		lobby();
 	}
 
