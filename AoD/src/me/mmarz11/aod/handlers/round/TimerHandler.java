@@ -2,8 +2,10 @@ package me.mmarz11.aod.handlers.round;
 
 import me.mmarz11.aod.AoD;
 import me.mmarz11.aod.enums.Timer;
+import me.mmarz11.aod.handlers.map.MapHandler;
 
 import org.bukkit.Location;
+import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -35,7 +37,11 @@ public class TimerHandler {
 				new Runnable() {
 					public void run() {
 						if (lobby == 0) {
-							AoD.inst.handlers.mapHandler.setRandomCurrentMap();
+							MapHandler handler = AoD.inst.handlers.mapHandler;
+							handler.setRandomCurrentMap();
+							AoD.inst.getServer().createWorld(
+									new WorldCreator(handler.currentMap
+											.getName()));
 							endLobby();
 						}
 
@@ -116,18 +122,28 @@ public class TimerHandler {
 
 	public void endRound() {
 		scheduler.cancelTask(roundTask);
-		
+
 		AoD.inst.handlers.playerTypeHandler.uninfectAll();
-		
+
 		for (Player player : AoD.inst.getServer().getOnlinePlayers()) {
 			Location lobby = AoD.inst.handlers.mapHandler.lobbySpawn;
 			if (!player.getWorld().equals(lobby.getWorld())) {
+				if (player.isDead()) {
+					player.setHealth(20.0);
+				}
 				player.teleport(lobby);
 			}
-			
+
 			player.getInventory().clear();
 		}
-		
+
+		if (AoD.inst.getServer().unloadWorld(
+				AoD.inst.handlers.mapHandler.currentMap.getName(), false)) {
+			System.out.println("Map successfully unloaded.");
+		} else {
+			System.out.println("Map failed to unload.");
+		}
+
 		lobby();
 	}
 

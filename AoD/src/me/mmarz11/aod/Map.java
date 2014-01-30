@@ -20,6 +20,7 @@ public class Map {
 		
 		this.plugin.getServer().createWorld(new WorldCreator(name));
 		this.world = plugin.getServer().getWorld(name);
+		this.world.setAutoSave(false);
 		
 		if (this.world == null) {
 			this.plugin.handlers.mapHandler.disableMap(this.getName());
